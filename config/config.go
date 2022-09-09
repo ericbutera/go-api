@@ -9,7 +9,7 @@ import (
 )
 
 // Application Configuration
-type AppConfig struct {
+type Config struct {
 	// Enable DataDog integration
 	// DataDog                 bool   `mapstructure:"data_dog"`
 	// DataDogApiKey           string `mapstructure:"data_dog_api_key"`
@@ -21,7 +21,7 @@ type AppConfig struct {
 	JaegerCollectorEndpoint string `mapstructure:"jaeger_collector_endpoint"`
 }
 
-func NewAppConfig(path *string, file *string) (AppConfig, error) {
+func NewAppConfig(path *string, file *string) (Config, error) {
 	viper.AddConfigPath(*path)
 	viper.SetConfigName(*file)
 	viper.SetConfigType("yaml")
@@ -40,7 +40,7 @@ func NewAppConfig(path *string, file *string) (AppConfig, error) {
 		log.Print(fmt.Errorf("fatal error config file: %w", read_err))
 	}
 
-	var config AppConfig
+	var config Config
 	parse_err := viper.Unmarshal(&config)
 	if parse_err != nil {
 		log.Print(fmt.Errorf("cannot parse config %s", parse_err))

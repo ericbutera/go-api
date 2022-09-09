@@ -1,12 +1,13 @@
 // https://medium.com/jaegertracing/take-jaeger-for-a-hotrod-ride-233cf43e46c2
 // https://github.com/jaegertracing/jaeger/tree/main/examples/hotrod
 
-package rest
+package api
 
 import (
 	"log"
 
-	appconfig "github.com/ericbutera/go-api/config"
+	// appconfig "github.com/ericbutera/go-api/config"
+	// "github.com/ericbutera/go-api/api"
 
 	"github.com/gin-gonic/gin"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"
@@ -18,8 +19,8 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.4.0"
 )
 
-func initOpenTel(config appconfig.AppConfig, r *gin.Engine) {
-	tp, err := openTelProvider(config)
+func InitOpenTel(app *App, r *gin.Engine) {
+	tp, err := OpenTelProvider(app)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -40,19 +41,19 @@ func initOpenTel(config appconfig.AppConfig, r *gin.Engine) {
 	//tr := tp.Tracer(config.ServiceName)
 	// ctx, span := tr.Start(ctx, "foo")
 	// defer span.End()
-
-	r.Use(otelgin.Middleware(config.AppName, otelgin.WithTracerProvider(tp)))
+	r.Use(otelgin.Middleware(app.Config.AppName, otelgin.WithTracerProvider(tp)))
 }
 
 // tracerProvider returns an OpenTelemetry TracerProvider configured to use
 // the Jaeger exporter that will send spans to the provided url. The returned
 // TracerProvider will also use a Resource configured with all the information
 // about the application.
-func openTelProvider(config appconfig.AppConfig) (*sdktrace.TracerProvider, error) {
+func OpenTelProvider(app *App) (*sdktrace.TracerProvider, error) {
 	//url := "http://127.0.0.1:14268/api/traces"
 
 	// Create the Jaeger exporter
-	exporter, err := jaeger.New(jaeger.WithCollectorEndpoint(jaeger.WithEndpoint(config.JaegerCollectorEndpoint)))
+	endpoint := jaeger.WithEndpoint(app.Config.JaegerCollectorEndpoint)
+	exporter, err := jaeger.New(jaeger.WithCollectorEndpoint(endpoint))
 	if err != nil {
 		return nil, err
 	}
@@ -63,8 +64,8 @@ func openTelProvider(config appconfig.AppConfig) (*sdktrace.TracerProvider, erro
 		// Record information about this application in a Resource.
 		sdktrace.WithResource(resource.NewWithAttributes(
 			semconv.SchemaURL,
-			semconv.ServiceNameKey.String(config.AppName),
-			attribute.String("environment", config.Env),
+			semconv.ServiceNameKey.String(app.Config.AppName),
+			attribute.String("environment", app.Config.Env),
 		)),
 	)
 

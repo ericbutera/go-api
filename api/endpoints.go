@@ -6,7 +6,7 @@
 //
 // swagger notes: https://github.com/swaggo/swag/blob/master/README.md#declarative-comments-format
 
-package rest
+package api
 
 import (
 	"net/http"

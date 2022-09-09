@@ -2,15 +2,13 @@
 // https://github.com/axiaoxin-com/ratelimiter
 // https://github.com/gin-gonic/contrib
 
-package rest
+package api
 
 import (
 	"log"
-
-	appconfig "github.com/ericbutera/go-api/config"
-
 	"time"
 
+	config "github.com/ericbutera/go-api/config"
 	_ "github.com/ericbutera/go-api/docs"
 
 	// "github.com/gin-contrib/requestid"
@@ -22,34 +20,48 @@ import (
 type App struct {
 	Logger *zap.Logger
 	Sugar  *zap.SugaredLogger
+	Config *config.Config
+}
+
+func NewApp(config *config.Config) (*App, error) {
+	// TODO: check out google wire DI
+	logger, err := zap.NewProduction()
+	if err != nil {
+		return nil, err
+	}
+
+	app := &App{
+		Logger: logger,
+		Config: config,
+	}
+
+	return app, nil
 }
 
 // @title Storage API
 // @BasePath /
-func Serve(config appconfig.AppConfig) {
+func (app *App) Serve() {
 
 	r := gin.Default()
 	// TODO: gin.SetMode(gin.DebugMode)
 
-	app := &App{}
-
 	// r.Use(requestid.New())
-	initLogger(config, r, app)
-	// initDataDog(config, r)
-	initOpenTel(config, r)
+	app.InitLogger(r)
+	// app.InitDataDog(r)
+	InitOpenTel(app, r)
+
+	app.Routes(r)
 
 	app.Logger.Info("Starting server")
 	app.Sugar.Infow("starting",
-		"app name", config.AppName,
-		"version", config.Version,
+		"app name", app.Config.AppName,
+		"version", app.Config.Version,
 	)
-
-	routes(r, app)
 
 	r.Run()
 }
 
-func initLogger(config appconfig.AppConfig, r *gin.Engine, app *App) {
+func (app *App) InitLogger(r *gin.Engine) {
 	// TODO: NewProduction()
 	logger, err := zap.NewDevelopment()
 	defer logger.Sync()
@@ -64,7 +76,7 @@ func initLogger(config appconfig.AppConfig, r *gin.Engine, app *App) {
 	app.Sugar = logger.Sugar()
 }
 
-func routes(r *gin.Engine, app *App) {
+func (app *App) Routes(r *gin.Engine) {
 	r.GET("/swagger/*any", swagger())
 	r.GET("/", app.Docs)
 	r.GET("/health", app.Health)
