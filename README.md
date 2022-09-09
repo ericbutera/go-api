@@ -10,6 +10,20 @@ Generated with [swag](https://github.com/swaggo/swag). Install with `go install 
 
 Configuration handled by `ENV` variables prefixed with `GOAPI_`. See [.env.sample](./.env.sample).
 
+## Container Registry
+
+- microk8s enable registry
+- update Makefile version, use `make image-build` and `make image-push`.
+- update kubernetes/deployment.yml
+  - update image tag
+  - `kubectl apply -f kubernetes/deployment.yml`
+
+## Telemetry
+
+Goals:
+- DataDog
+- OpenTelemetry
+
 ## Debug
 
 See [DEBUG](./DEBUG.md).
