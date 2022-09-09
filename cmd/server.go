@@ -11,7 +11,12 @@ import (
 )
 
 func NewConfig() *config.Config {
-	viper.SetDefault("Env", "dev")
+	viper.SetDefault("env", "dev")
+	viper.SetDefault("jaeger", false)
+	viper.SetDefault("jaeger_collector_endpoint", "http://localhost:14268/api/traces")
+	viper.SetDefault("app_name", "go-api")
+	viper.SetDefault("service_name", "go-api")
+	viper.SetDefault("version", "0.0.1")
 
 	var config config.Config
 	err := viper.Unmarshal(&config)

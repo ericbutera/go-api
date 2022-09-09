@@ -29,7 +29,7 @@ func init() {
 }
 
 func initConfig() {
-	// this allows NISTY_ENV to work automagically!
+	// this allows GOAPI_ENV to work automagically!
 	// https://github.com/spf13/viper#env-example
 	viper.SetEnvPrefix("goapi")
 	viper.AutomaticEnv()
