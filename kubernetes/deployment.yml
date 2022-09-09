@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: go-api
-          # image: ericbutera/go-api:0.0.3
-          image: localhost:32000/go-api:latest
+          image: ericbutera/go-api:0.0.1
+          # image: localhost:32000/go-api:latest
           resources:
             limits:
               memory: "128Mi"

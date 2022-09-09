@@ -30,8 +30,8 @@ func NewAppConfig(path *string, file *string) (AppConfig, error) {
 	viper.SetDefault("jaeger_collector_endpoint", "http://localhost:14268/api/traces")
 	// viper.SetDefault("data_dog", false)
 	// viper.SetDefault("data_dog_api_key", "")
-	viper.SetDefault("app_name", "API-GO")
-	viper.SetDefault("service_name", "api-go")
+	viper.SetDefault("app_name", "go-api")
+	viper.SetDefault("service_name", "go-api")
 	viper.SetDefault("env", "dev")
 	viper.SetDefault("version", "0.0.1")
 

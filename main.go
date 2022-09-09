@@ -4,8 +4,8 @@ import (
 	"flag"
 	"log"
 
-	rest "github.com/ericbutera/api-go/api"
-	"github.com/ericbutera/api-go/config"
+	rest "github.com/ericbutera/go-api/api"
+	"github.com/ericbutera/go-api/config"
 )
 
 // TODO make cmd

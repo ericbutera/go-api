@@ -7,11 +7,11 @@ package rest
 import (
 	"log"
 
-	appconfig "github.com/ericbutera/api-go/config"
+	appconfig "github.com/ericbutera/go-api/config"
 
 	"time"
 
-	_ "github.com/ericbutera/api-go/docs"
+	_ "github.com/ericbutera/go-api/docs"
 
 	// "github.com/gin-contrib/requestid"
 	ginzap "github.com/gin-contrib/zap"

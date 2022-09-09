@@ -6,7 +6,7 @@ package rest
 import (
 	"log"
 
-	appconfig "github.com/ericbutera/api-go/config"
+	appconfig "github.com/ericbutera/go-api/config"
 
 	"github.com/gin-gonic/gin"
 	"go.opentelemetry.io/contrib/instrumentation/github.com/gin-gonic/gin/otelgin"

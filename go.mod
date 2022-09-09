@@ -1,4 +1,4 @@
-module github.com/ericbutera/api-go
+module github.com/ericbutera/go-api
 
 go 1.19
 

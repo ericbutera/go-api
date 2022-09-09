@@ -10,7 +10,7 @@ package rest
 
 import (
 	"net/http"
-	"time"
+	// "time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
@@ -63,7 +63,7 @@ func (app *App) Health(c *gin.Context) {
 // @Success 200 {Base} Base
 // @Router /wait [get]
 func (app *App) Wait(c *gin.Context) {
-	time.Sleep(10 * time.Second)
+	// time.Sleep(10 * time.Second)
 	c.JSON(http.StatusOK, Base{
 		Message: "Waited 10 seconds",
 	})
