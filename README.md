@@ -24,6 +24,12 @@ Goals:
 - DataDog
 - OpenTelemetry
 
+Forward:
+- Jaeger: `kubectl port-forward $(kubectl get pods -l=app="jaeger" -o name) 16686:16686`
+- Collector: `kubectl port-forward -n default service/simplest-collector 14268:14268 --address 0.0.0.0`
+
+[Jaeger UI](http://localhost:16686/)
+
 ## Debug
 
 See [DEBUG](./DEBUG.md).

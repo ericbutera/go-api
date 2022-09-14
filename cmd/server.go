@@ -3,6 +3,7 @@ package cmd
 
 import (
 	"log"
+
 	"github.com/ericbutera/go-api/api"
 	"github.com/ericbutera/go-api/config"
 
@@ -13,7 +14,12 @@ import (
 func NewConfig() *config.Config {
 	viper.SetDefault("env", "dev")
 	viper.SetDefault("jaeger", false)
+
+	// Note:
+	// grpc-http,14250,TCP
+	// http-c-binary-trft,14268,TCP
 	viper.SetDefault("jaeger_collector_endpoint", "http://localhost:14268/api/traces")
+
 	viper.SetDefault("app_name", "go-api")
 	viper.SetDefault("service_name", "go-api")
 	viper.SetDefault("version", "0.0.1")

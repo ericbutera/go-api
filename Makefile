@@ -1,7 +1,8 @@
-VERSION=0.0.2
+VERSION=0.0.3
 MAIN=main.go
 IMAGE_NAME=go-api
-IMAGE_REPO=ericbutera
+# IMAGE_REPO=ericbutera
+IMAGE_REPO=nibelheim:32000
 IMAGE_TAG=${VERSION}
 
 .DEFAULT_GOAL := help
@@ -52,7 +53,7 @@ image-build: ## Build docker image
 
 .PHONY: run
 run: ## Run app
-	go run ${MAIN}
+	go run ${MAIN} server
 
 .PHONY: test
 test: ## Run tests

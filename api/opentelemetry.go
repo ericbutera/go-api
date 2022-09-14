@@ -49,9 +49,6 @@ func InitOpenTel(app *App, r *gin.Engine) {
 // TracerProvider will also use a Resource configured with all the information
 // about the application.
 func OpenTelProvider(app *App) (*sdktrace.TracerProvider, error) {
-	//url := "http://127.0.0.1:14268/api/traces"
-
-	// Create the Jaeger exporter
 	endpoint := jaeger.WithEndpoint(app.Config.JaegerCollectorEndpoint)
 	exporter, err := jaeger.New(jaeger.WithCollectorEndpoint(endpoint))
 	if err != nil {

@@ -16,8 +16,12 @@ spec:
     spec:
       containers:
         - name: go-api
-          image: ericbutera/go-api:0.0.1
-          # image: localhost:32000/go-api:latest
+          # image: ericbutera/go-api:0.0.3
+          image: localhost:32000/go-api:0.0.3
+          env:
+            - name: GOAPI_JAEGER_COLLECTOR_ENDPOINT
+              value: http://10.1.161.44:14268/api/traces
+              # value: http://simplest-collector:14268/api/traces
           resources:
             limits:
               memory: "128Mi"
