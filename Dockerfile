@@ -1,5 +1,7 @@
 FROM golang:1.19-alpine AS build
 
+LABEL org.opencontainers.image.description go-api demo application
+
 WORKDIR /src/
 
 COPY . ./
