@@ -47,8 +47,11 @@ func (app *App) Serve() {
 
 	// r.Use(requestid.New())
 	app.InitLogger(r)
-	// app.InitDataDog(r)
-	InitOpenTel(app, r)
+	// app.InitDataDog(r) // TODO: move to otel collector
+
+	if app.Config.UseOpenTel {
+		InitOpenTel(app, r)
+	}
 
 	app.Routes(r)
 

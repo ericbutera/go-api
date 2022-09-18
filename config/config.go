@@ -12,4 +12,5 @@ type Config struct {
 	Env                     string `mapstructure:"env"`
 	Version                 string `mapstructure:"version"`
 	JaegerCollectorEndpoint string `mapstructure:"jaeger_collector_endpoint"`
+	UseOpenTel              bool   `mapstructure:"use_opentel"`
 }

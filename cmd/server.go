@@ -13,7 +13,7 @@ import (
 
 func NewConfig() *config.Config {
 	viper.SetDefault("env", "dev")
-	viper.SetDefault("jaeger", false)
+	viper.SetDefault("use_opentel", false)
 
 	// Note:
 	// grpc-http,14250,TCP
@@ -22,7 +22,7 @@ func NewConfig() *config.Config {
 
 	viper.SetDefault("app_name", "go-api")
 	viper.SetDefault("service_name", "go-api")
-	viper.SetDefault("version", "0.0.1")
+	viper.SetDefault("version", "0.0.1") // TODO: dynamic version from build
 
 	var config config.Config
 	err := viper.Unmarshal(&config)
