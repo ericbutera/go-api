@@ -1,0 +1,17 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-api
+spec:
+  template:
+    spec:
+      containers:
+        - name: go-api
+          image: ghcr.io/ericbutera/go-api:v0.0.2
+          env:
+            - name: GOAPI_USE_OPENTEL
+              value: "true"
+            - name: GOAPI_JAEGER_COLLECTOR_ENDPOINT
+              value: http://10.1.161.44:14268/api/traces
+          ports:
+            - containerPort: 8080

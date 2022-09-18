@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: go-api
-  # annotations:
-  #   "sidecar.jaegertracing.io/inject": "true"
 spec:
   replicas: 1
   selector:
@@ -16,12 +14,12 @@ spec:
     spec:
       containers:
         - name: go-api
+          image: ghcr.io/ericbutera/go-api:v0.0.2
           # image: ericbutera/go-api:0.0.3
-          image: localhost:32000/go-api:0.0.3
+          # image: localhost:32000/go-api:0.0.3
           env:
-            - name: GOAPI_JAEGER_COLLECTOR_ENDPOINT
-              value: http://10.1.161.44:14268/api/traces
-              # value: http://simplest-collector:14268/api/traces
+            - name: GOAPI_USE_OPENTEL
+              value: "false"
           resources:
             limits:
               memory: "128Mi"
