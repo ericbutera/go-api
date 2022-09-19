@@ -14,9 +14,7 @@ spec:
     spec:
       containers:
         - name: go-api
-          image: ghcr.io/ericbutera/go-api:v0.0.2
-          # image: ericbutera/go-api:0.0.3
-          # image: localhost:32000/go-api:0.0.3
+          image: ghcr.io/ericbutera/go-api:v0.0.5
           env:
             - name: GOAPI_USE_OPENTEL
               value: "false"
