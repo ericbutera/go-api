@@ -1,5 +1,5 @@
 # Note: github actions handles creating the image now
-VERSION=v0.0.6
+VERSION=v0.0.7
 MAIN=main.go
 IMAGE_NAME=go-api
 IMAGE_REPO=ghcr.io/ericbutera

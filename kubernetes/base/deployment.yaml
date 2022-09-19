@@ -14,10 +14,10 @@ spec:
     spec:
       containers:
         - name: go-api
-          image: ghcr.io/ericbutera/go-api:v0.0.6
+          image: ghcr.io/ericbutera/go-api:v0.0.7
           env:
             - name: GOAPI_VERSION
-              value: v0.0.6
+              value: v0.0.7
             - name: GOAPI_USE_OPENTEL
               value: "false"
           resources:
