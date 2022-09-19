@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-api
+spec:
+  ports:
+  - port: 8080
+    protocol: TCP
+  selector:
+    app: go-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-api
+  template:
+    metadata:
+      labels:
+        app: go-api
+    spec:
+      containers:
+      - env:
+        - name: GOAPI_USE_OPENTEL
+          value: "true"
+        - name: GOAPI_JAEGER_COLLECTOR_ENDPOINT
+          value: http://10.1.161.44:14268/api/traces
+        image: ghcr.io/ericbutera/go-api:v0.0.2
+        name: go-api
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: 100m
+            memory: 128Mi
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: lets-encrypt
+    nginx.ingress.kubernetes.io/auth-realm: Authentication Required
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-type: basic
+  name: go-api
+spec:
+  rules:
+  - host: go-api.nibelheim.dev
+    http:
+      paths:
+      - backend:
+          service:
+            name: go-api
+            port:
+              number: 8080
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - go-api.nibelheim.dev
+    secretName: go-api-ingress-tls
