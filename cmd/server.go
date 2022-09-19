@@ -22,7 +22,7 @@ func NewConfig() *config.Config {
 
 	viper.SetDefault("app_name", "go-api")
 	viper.SetDefault("service_name", "go-api")
-	viper.SetDefault("version", "0.0.1") // TODO: dynamic version from build
+	viper.SetDefault("version", "devel")
 
 	var config config.Config
 	err := viper.Unmarshal(&config)

@@ -34,6 +34,7 @@ type ErrorResponse struct {
 
 type HealthResponse struct {
 	Base
+	Version string `json:"version"`
 }
 
 func (app *App) Docs(c *gin.Context) {
@@ -50,7 +51,8 @@ func (app *App) Docs(c *gin.Context) {
 // @Router /health [get]
 func (app *App) Health(c *gin.Context) {
 	c.JSON(http.StatusOK, HealthResponse{
-		Base: Base{Message: "alive"},
+		Base:    Base{Message: "alive"},
+		Version: app.Config.Version,
 	})
 }
 
