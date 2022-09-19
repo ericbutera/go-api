@@ -1,8 +1,8 @@
-VERSION=0.0.3
+# Note: github actions handles creating the image now
+VERSION=v0.0.4
 MAIN=main.go
 IMAGE_NAME=go-api
-# IMAGE_REPO=ericbutera
-IMAGE_REPO=nibelheim:32000
+IMAGE_REPO=ghcr.io/ericbutera
 IMAGE_TAG=${VERSION}
 
 .DEFAULT_GOAL := help

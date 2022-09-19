@@ -2,19 +2,18 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: go-api
-  # namespace: api-service
   annotations:
     cert-manager.io/cluster-issuer: lets-encrypt
-    # nginx.ingress.kubernetes.io/auth-type: basic
-    # nginx.ingress.kubernetes.io/auth-secret: basic-auth
-    # nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required - nibelheim'
+    nginx.ingress.kubernetes.io/auth-type: basic
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-realm: 'Authentication Required'
 spec:
   tls:
     - hosts:
-        - go-api.microk8s
+        - go-api.nibelheim.dev
       secretName: go-api-ingress-tls
   rules:
-    - host: go-api.microk8s
+    - host: go-api.nibelheim.dev
       http:
         paths:
           - path: /
