@@ -1,5 +1,5 @@
 # Note: github actions handles creating the image now
-VERSION=v0.0.7
+VERSION=v0.0.8
 MAIN=main.go
 IMAGE_NAME=go-api
 IMAGE_REPO=ghcr.io/ericbutera
@@ -54,6 +54,14 @@ image-build: ## Build docker image
 .PHONY: run
 run: ## Run app
 	go run ${MAIN} server
+
+.PHONY: tag
+run: ## Create a new tag (app version)
+	git tag ${VERSION}
+
+.PHONY: tag-push
+run: ## Push tags
+	git push --tags
 
 .PHONY: test
 test: ## Run tests

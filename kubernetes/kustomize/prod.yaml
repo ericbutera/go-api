@@ -30,8 +30,8 @@ spec:
         - name: GOAPI_JAEGER_COLLECTOR_ENDPOINT
           value: http://10.1.161.44:14268/api/traces
         - name: GOAPI_VERSION
-          value: v0.0.7
-        image: ghcr.io/ericbutera/go-api:v0.0.7
+          value: v0.0.8
+        image: ghcr.io/ericbutera/go-api:v0.0.8
         name: go-api
         ports:
         - containerPort: 8080
